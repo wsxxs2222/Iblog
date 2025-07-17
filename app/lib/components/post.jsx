@@ -1,13 +1,17 @@
 import React from 'react';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useContext } from 'react';
+import { AppStateContext } from '../../context';
 
-function Post(props) {
+function Post({title, content, username, id}) {
     const [hasLiked, setHasLiked] = React.useState(false);
+    const {deletePost} = useContext(AppStateContext);
 
     return <div>
-        <h2>{props.title}</h2>
-        <p>{props.content}</p>
+        <h2>{title}</h2>
+        <h3>{username}</h3>
+        <p>{content}</p>
         <div className='row-of-buttons'>
             <button 
             onClick={() => {
@@ -23,7 +27,7 @@ function Post(props) {
                 )}
             </button>
             <button onClick={() => {
-                props.onDelete(props.id);
+                deletePost(id);
             }}>Delete</button>
         </div>
     </div>

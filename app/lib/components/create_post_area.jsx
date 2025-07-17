@@ -1,7 +1,11 @@
+'use client'
 import React from 'react';
+import { useContext } from 'react';
+import { AppStateContext } from '../../context';
 
 function CreatePostArea(props) {
     const [inputPost, setInputPost] = React.useState({title: '', content: '',});
+    const {currentUser} = useContext(AppStateContext);
 
     return <form id='create-post-area'>
         <input name='title' value={inputPost.title} onChange={updateInputPost} type="text" placeholder="title"/>
@@ -16,7 +20,7 @@ function CreatePostArea(props) {
     function updateInputPost(event) {
         const {name, value} = event.target;
         setInputPost((oldInputPost) => {
-            return {...oldInputPost, [name]: value};
+            return {...oldInputPost, [name]: value, username: currentUser.username};
         });
     }
 }

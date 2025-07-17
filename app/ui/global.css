@@ -1,0 +1,14 @@
+h1 {
+    color: aqua;
+}
+
+#appbar {
+    background-color: aqua;
+    display: flex;
+}
+
+.active-tab {
+    background-color: white;
+    color: orange;
+}
+
