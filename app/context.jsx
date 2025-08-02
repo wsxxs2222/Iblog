@@ -1,5 +1,5 @@
 'use client'
-import { createContext } from "react";
+import { createContext, useCallback, useMemo } from "react";
 import React from "react";
 
 export const AppStateContext = createContext(
@@ -18,7 +18,7 @@ export function AppStateKeeper({children}) {
             accountCreatedTime: new Date(2025, 6, 17),
         });
 
-    async function fetchPostList() {
+    const fetchPostList = useCallback(async () => {
         try {
             const response = await fetch('/api/test-db');
             const result = await response.json();
@@ -32,7 +32,7 @@ export function AppStateKeeper({children}) {
             console.log(e);
             return [];
         }
-    }
+    }, []);
 
     function addPost(post) {
         setPostList((oldPostList) => {
@@ -47,15 +47,17 @@ export function AppStateKeeper({children}) {
         });
     }
 
-    const contextValues = {
-        currentUser: currentUser,
-        postList: postList,
-        setCurrentUser: setCurrentUser,
-        setPostList: setPostList,
-        addPost: addPost,
-        deletePost: deletePost,
-        fetchPostList: fetchPostList,
-    }
+    const contextValues = useMemo(() => (
+        {
+            currentUser: currentUser,
+            postList: postList,
+            setCurrentUser: setCurrentUser,
+            setPostList: setPostList,
+            addPost: addPost,
+            deletePost: deletePost,
+            fetchPostList: fetchPostList,
+        }
+    ), [currentUser, postList,]);
     return <AppStateContext value={contextValues}>{children}</AppStateContext>
 }
 

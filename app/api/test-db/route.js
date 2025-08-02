@@ -8,7 +8,7 @@ export async function GET() {
     password: process.env.POSTGRES_PASSWORD,
     host: process.env.POSTGRES_HOST,
     database: process.env.POSTGRES_DATABASE,
-    port: 5432,
+    port: process.env.POSTGRES_PORT,
     ssl: { rejectUnauthorized: false },
   });
 
