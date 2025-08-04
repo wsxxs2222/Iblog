@@ -4,6 +4,7 @@ import { Post } from './lib/components/post';
 import { useContext, useEffect } from 'react';
 import { AppStateContext } from './context';
 
+
 function HomePage() {
     const {postList, fetchPostList, setPostList} = useContext(AppStateContext);
     useEffect(() => {
@@ -15,8 +16,8 @@ function HomePage() {
     return <div>
         <CreatePostArea></CreatePostArea>
         {postList.map((post, index) => {
-            const {title, content} = post;
-            return <Post key={index} title={title} id={index} content={content} username={post.username}></Post>
+            const {title, content, id} = post;
+            return <Post key={index} title={title} id={id} content={content} username={post.username}></Post>
         })}
     </div>;
 }

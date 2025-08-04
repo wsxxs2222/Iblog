@@ -1,6 +1,7 @@
 'use client'
 import { createContext, useCallback, useMemo } from "react";
 import React from "react";
+import axios from 'axios';
 
 export const AppStateContext = createContext(
     {
@@ -20,9 +21,9 @@ export function AppStateKeeper({children}) {
 
     const fetchPostList = useCallback(async () => {
         try {
-            const response = await fetch('/api/test-db');
-            const result = await response.json();
-            console.log(`result is ${result}`);
+            const response = await axios.get('/api/user-post');
+            const result = response.data;
+            console.log(`result is`, result);
             if (!result.success) {
                 console.log('failed to fetch posts');
                 return [];
@@ -34,17 +35,19 @@ export function AppStateKeeper({children}) {
         }
     }, []);
 
-    function addPost(post) {
-        setPostList((oldPostList) => {
-            return [...oldPostList, post];
+    async function addPost(post) {
+        await axios.post('/api/user-post', {
+            post: post,
         });
+        const apiPostList = await fetchPostList();
+        setPostList(apiPostList);
     }
-    function deletePost(idOfToBeDeletedPost) {
-        setPostList((oldPostList) => {
-            return oldPostList.filter((post, postIndex) => {
-                return postIndex != idOfToBeDeletedPost;
-            });
+    async function deletePost(idOfToBeDeletedPost) {
+        await axios.delete('/api/user-post', {
+            data: {id: idOfToBeDeletedPost,},
         });
+        const apiPostList = await fetchPostList();
+        setPostList(apiPostList);
     }
 
     const contextValues = useMemo(() => (
