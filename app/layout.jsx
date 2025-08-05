@@ -12,12 +12,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <SessionProviderWrapper>
           <AppStateKeeper>
-            <SessionProviderWrapper>
               <MyAppBar></MyAppBar>
               {children}
-            </SessionProviderWrapper>
           </AppStateKeeper>
+        </SessionProviderWrapper>
       </body>
     </html>
   )

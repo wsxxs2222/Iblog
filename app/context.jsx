@@ -35,14 +35,14 @@ export function AppStateKeeper({children}) {
         }
     }, []);
 
-    const addPost = useCallback(async () => {
+    const addPost = useCallback(async (post) => {
         await axios.post('/api/user-post', {
             post: post,
         });
         const apiPostList = await fetchPostList();
         setPostList(apiPostList);
     }, [fetchPostList]);
-    const deletePost = useCallback(async () => {
+    const deletePost = useCallback(async (idOfToBeDeletedPost) => {
         await axios.delete('/api/user-post', {
             data: {id: idOfToBeDeletedPost,},
         });

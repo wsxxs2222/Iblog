@@ -3,7 +3,9 @@ import { db } from '../db';
 
 export async function GET() {
   try {
-    const result = await db.query('SELECT * FROM post');
+    const result = await db.query('SELECT id, title, content, time_created, blog_user.username FROM post ' + 
+        'JOIN blog_user ON post.email=blog_user.email;'
+    );
     return NextResponse.json({ success: true, posts: result.rows });
   } catch (e) {
     console.error('DB error:', e);
@@ -14,10 +16,10 @@ export async function GET() {
 export async function POST(request) {
     const data = await request.json();
     const post = data.post;
-    const {title, content} = post;
+    const {title, content, timeCreated, email} = post;
     try {
-        await db.query('INSERT INTO post (title, content) VALUES ($1, $2)',
-            [title, content],
+        await db.query('INSERT INTO post (title, content, time_created, email) VALUES ($1, $2, $3, $4)',
+            [title, content, timeCreated, email],
         );
         return NextResponse.json({success: true,});
     } catch (e) {

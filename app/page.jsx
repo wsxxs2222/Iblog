@@ -18,7 +18,7 @@ function HomePage() {
         <CreatePostArea></CreatePostArea>
         {postList.map((post, index) => {
             const {title, content, id} = post;
-            return <Post key={index} title={title} id={id} content={content} username={post.username}></Post>
+            return <Post key={index} title={title} id={id} content={content} username={post.username} timeCreated={post.time_created}></Post>
         })}
     </div>;
 }

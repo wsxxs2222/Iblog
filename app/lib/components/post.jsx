@@ -4,13 +4,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useContext } from 'react';
 import { AppStateContext } from '../../context';
 
-function Post({title, content, username, id}) {
+function Post({title, content, username, id, timeCreated}) {
     const [hasLiked, setHasLiked] = React.useState(false);
     const {deletePost} = useContext(AppStateContext);
 
     return <div>
         <h2>{title}</h2>
-        <h3>{username}</h3>
+        <h3>by {username} at {timeCreated?.slice(0, 10)}</h3>
         <p>{content}</p>
         <div className='row-of-buttons'>
             <button 
