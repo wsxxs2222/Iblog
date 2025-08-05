@@ -35,20 +35,20 @@ export function AppStateKeeper({children}) {
         }
     }, []);
 
-    async function addPost(post) {
+    const addPost = useCallback(async () => {
         await axios.post('/api/user-post', {
             post: post,
         });
         const apiPostList = await fetchPostList();
         setPostList(apiPostList);
-    }
-    async function deletePost(idOfToBeDeletedPost) {
+    }, [fetchPostList]);
+    const deletePost = useCallback(async () => {
         await axios.delete('/api/user-post', {
             data: {id: idOfToBeDeletedPost,},
         });
         const apiPostList = await fetchPostList();
         setPostList(apiPostList);
-    }
+    }, [fetchPostList]);
 
     const contextValues = useMemo(() => (
         {
@@ -60,7 +60,7 @@ export function AppStateKeeper({children}) {
             deletePost: deletePost,
             fetchPostList: fetchPostList,
         }
-    ), [currentUser, postList,]);
+    ), [currentUser, postList, addPost, deletePost, fetchPostList,]);
     return <AppStateContext value={contextValues}>{children}</AppStateContext>
 }
 
