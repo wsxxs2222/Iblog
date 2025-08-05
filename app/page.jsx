@@ -5,6 +5,7 @@ import { useContext, useEffect } from 'react';
 import { AppStateContext } from './context';
 
 
+
 function HomePage() {
     const {postList, fetchPostList, setPostList} = useContext(AppStateContext);
     useEffect(() => {

@@ -1,6 +1,7 @@
 import '../app/ui/global.css';
 import { AppStateKeeper } from './context';
-import {MyAppBar} from './appbar';
+import {MyAppBar} from './lib/components/appbar';
+import { SessionProviderWrapper } from './session_provider';
 
 export const metadata = {
   title: 'Next.js',
@@ -12,8 +13,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
           <AppStateKeeper>
-            <MyAppBar></MyAppBar>
-            {children}
+            <SessionProviderWrapper>
+              <MyAppBar></MyAppBar>
+              {children}
+            </SessionProviderWrapper>
           </AppStateKeeper>
       </body>
     </html>

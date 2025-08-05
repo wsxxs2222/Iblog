@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 TODOs.txt
+OAuth_credentials.txt
 
 # Editor directories and files
 .vscode/*

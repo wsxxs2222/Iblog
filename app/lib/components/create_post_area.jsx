@@ -7,6 +7,7 @@ function CreatePostArea() {
     const [inputPost, setInputPost] = React.useState({title: '', content: '',});
     const {currentUser, addPost} = useContext(AppStateContext);
 
+
     return <form id='create-post-area'>
         <input name='title' value={inputPost.title} onChange={updateInputPost} type="text" placeholder="title"/>
         <textarea name="content" value={inputPost.content} onChange={updateInputPost} placeholder="content"></textarea>
