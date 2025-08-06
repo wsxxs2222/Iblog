@@ -5,19 +5,13 @@ import axios from 'axios';
 
 export const AppStateContext = createContext(
     {
-        currentUser: null,
         postList: [],
         setPostList: null,
-        setCurrentUser: null,
     }
 )
 
 export function AppStateKeeper({children}) {
     const [postList, setPostList] = React.useState([]);
-    const [currentUser, setCurrentUser] = React.useState({
-            username: 'joe',
-            accountCreatedTime: new Date(2025, 6, 17),
-        });
 
     const fetchPostList = useCallback(async () => {
         try {
@@ -52,15 +46,13 @@ export function AppStateKeeper({children}) {
 
     const contextValues = useMemo(() => (
         {
-            currentUser: currentUser,
             postList: postList,
-            setCurrentUser: setCurrentUser,
             setPostList: setPostList,
             addPost: addPost,
             deletePost: deletePost,
             fetchPostList: fetchPostList,
         }
-    ), [currentUser, postList, addPost, deletePost, fetchPostList,]);
+    ), [postList, addPost, deletePost, fetchPostList,]);
     return <AppStateContext value={contextValues}>{children}</AppStateContext>
 }
 

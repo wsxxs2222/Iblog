@@ -4,7 +4,7 @@ import { db } from '../db';
 export async function GET() {
   try {
     const result = await db.query('SELECT id, title, content, time_created, blog_user.username FROM post ' + 
-        'JOIN blog_user ON post.email=blog_user.email;'
+        'JOIN blog_user ON post.email=blog_user.email ORDER  BY id ASC LIMIT 20;'
     );
     return NextResponse.json({ success: true, posts: result.rows });
   } catch (e) {
@@ -27,6 +27,24 @@ export async function POST(request) {
         return NextResponse.json({success: false, error: e.message}, {status: 500});
     }
 }
+
+export async function PATCH(request) {
+    const data = await request.json();
+    const title = data.title;
+    const content = data.content;
+    const id = data.id;
+    try {
+        await db.query(
+            'UPDATE post SET title=$1, content=$2 WHERE id=$3',
+            [title, content, id,],
+        );
+        return NextResponse.json({success: true,});
+    } catch (e) {
+        console.error('DB error:', e);
+        return NextResponse.json({success: false, error: e.message}, {status: 500});
+    }
+}
+
 
 export async function DELETE(request) {
     const data = await request.json();

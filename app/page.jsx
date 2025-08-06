@@ -3,11 +3,14 @@ import { CreatePostArea } from './lib/components/create_post_area';
 import { Post } from './lib/components/post';
 import { useContext, useEffect } from 'react';
 import { AppStateContext } from './context';
+import { useSession } from 'next-auth/react';
 
 
 
 function HomePage() {
     const {postList, fetchPostList, setPostList} = useContext(AppStateContext);
+    const session = useSession();
+    
     useEffect(() => {
         fetchPostList().then((apiPostList) => {
             setPostList(apiPostList);
@@ -15,7 +18,7 @@ function HomePage() {
     }, [fetchPostList, setPostList,]);
 
     return <div>
-        <CreatePostArea></CreatePostArea>
+        {session.data?.user ? <CreatePostArea></CreatePostArea> : null}
         {postList.map((post, index) => {
             const {title, content, id} = post;
             return <Post key={index} title={title} id={id} content={content} username={post.username} timeCreated={post.time_created}></Post>

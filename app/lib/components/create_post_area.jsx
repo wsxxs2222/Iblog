@@ -7,7 +7,7 @@ import { timeFormatter } from '../../util/time_tools';
 
 function CreatePostArea() {
     const [inputPost, setInputPost] = React.useState({title: '', content: '',});
-    const {currentUser, addPost} = useContext(AppStateContext);
+    const {addPost} = useContext(AppStateContext);
     const session = useSession();
 
     return <form id='create-post-area'>
@@ -28,7 +28,7 @@ function CreatePostArea() {
     function updateInputPost(event) {
         const {name, value} = event.target;
         setInputPost((oldInputPost) => {
-            return {...oldInputPost, [name]: value, username: currentUser.username};
+            return {...oldInputPost, [name]: value,};
         });
     }
 }

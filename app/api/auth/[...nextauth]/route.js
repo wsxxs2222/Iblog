@@ -29,6 +29,19 @@ const handler = NextAuth({
         return false;
       }
     },
+    async jwt({ token, user}) {
+      if (user) {
+        const result = await db.query('SELECT username FROM blog_user WHERE email=$1;',
+          [user.email],
+        );
+        token.username = result.rows[0]?.username;
+      }
+      return token;
+    },
+    async session({ session, token}) {
+      session.user.name = token.username;
+      return session;
+    },
     async redirect({/*url, baseUrl*/}) {
       return '/';
     }

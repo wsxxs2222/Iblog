@@ -1,19 +1,22 @@
 'use client'
 import { Post } from "../lib/components/post";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppStateContext } from "../context";
+import { useSession } from "next-auth/react";
 
 export default function ProfilePage() {
-  const {postList, currentUser} = useContext(AppStateContext);
-  const postComponentList = postList.map((post, index) => {
-      return <Post title={post.title} content={post.content} username={post.username} key={index} id={index}></Post>;
+  const {postList, setPostList} = useContext(AppStateContext);
+  const session = useSession();
+  const currentUsername = session.data?.user.name;
+
+  const userPostList = postList.filter((post) => {
+    return post.username === currentUsername;
   });
   
   return <div>
-    <h2>{currentUser?.username ?? ''}</h2>
-    <h3>{currentUser?.accountCreatedTime.toISOString() ?? ''}</h3>
-    {postComponentList.filter((postComponent) => {
-      return postComponent.props.username === currentUser?.username;
+    <h2>Username: {session.data?.user.name}</h2>
+    {userPostList.map((post, index) => {
+      return <Post title={post.title} content={post.content} username={post.username} key={index} id={post.id}></Post>;
     })}
   </div>;
 }
