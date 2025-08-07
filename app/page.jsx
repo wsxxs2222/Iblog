@@ -1,8 +1,8 @@
 'use client'
-import { CreatePostArea } from './lib/components/create_post_area';
-import { Post } from './lib/components/post';
+import { CreatePostArea } from './lib/components/post_components/create_post_area';
+import { Post } from './lib/components/post_components/post';
 import { useContext, useEffect } from 'react';
-import { AppStateContext } from './context';
+import { AppStateContext } from './lib/components/app_context';
 import { useSession } from 'next-auth/react';
 
 

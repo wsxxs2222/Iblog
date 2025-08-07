@@ -1,7 +1,7 @@
 import '../app/ui/global.css';
-import { AppStateKeeper } from './context';
+import { AppStateKeeper } from './lib/components/app_context';
 import {MyAppBar} from './lib/components/appbar';
-import { SessionProviderWrapper } from './session_provider';
+import { SessionProviderWrapper } from './lib/components/session_provider';
 
 export const metadata = {
   title: 'Next.js',

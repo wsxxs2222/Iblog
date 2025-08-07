@@ -1,11 +1,11 @@
 'use client'
 import { Post } from "../lib/components/post";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AppStateContext } from "../context";
 import { useSession } from "next-auth/react";
 
 export default function ProfilePage() {
-  const {postList, setPostList} = useContext(AppStateContext);
+  const {postList} = useContext(AppStateContext);
   const session = useSession();
   const currentUsername = session.data?.user.name;
 

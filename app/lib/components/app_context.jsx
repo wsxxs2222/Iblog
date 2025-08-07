@@ -53,6 +53,6 @@ export function AppStateKeeper({children}) {
             fetchPostList: fetchPostList,
         }
     ), [postList, addPost, deletePost, fetchPostList,]);
-    return <AppStateContext value={contextValues}>{children}</AppStateContext>
+    return <AppStateContext value={contextValues}>{children}</AppStateContext>;
 }
 

@@ -1,9 +1,9 @@
 'use client'
 import React from 'react';
 import { useContext } from 'react';
-import { AppStateContext } from '../../context';
+import { AppStateContext } from '../app_context';
 import { useSession } from 'next-auth/react';
-import { timeFormatter } from '../../util/time_tools';
+import { timeFormatter } from '../../../util/time_tools';
 
 function CreatePostArea() {
     const [inputPost, setInputPost] = React.useState({title: '', content: '',});
