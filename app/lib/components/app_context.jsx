@@ -2,6 +2,7 @@
 import { createContext, useCallback, useMemo } from "react";
 import React from "react";
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
 
 export const AppStateContext = createContext(
     {
@@ -11,6 +12,7 @@ export const AppStateContext = createContext(
 )
 
 export function AppStateKeeper({children}) {
+    const session = useSession();
     const [postList, setPostList] = React.useState([]);
 
     const fetchPostList = useCallback(async () => {
@@ -28,6 +30,17 @@ export function AppStateKeeper({children}) {
             return [];
         }
     }, []);
+
+    
+
+    const isContentFromCurrentUser = useCallback((contentUser) => {
+        return contentUser === session.data?.user.name;
+    }, [session,]);
+
+    const isLoggedIn = useCallback(() => {
+        return session.status === "authenticated";
+    }, [session,]);
+
 
     const addPost = useCallback(async (post) => {
         await axios.post('/api/user-post', {
@@ -51,8 +64,10 @@ export function AppStateKeeper({children}) {
             addPost: addPost,
             deletePost: deletePost,
             fetchPostList: fetchPostList,
+            isContentFromCurrentUser: isContentFromCurrentUser,
+            isLoggedIn: isLoggedIn,
         }
-    ), [postList, addPost, deletePost, fetchPostList,]);
+    ), [postList, addPost, deletePost, fetchPostList, isContentFromCurrentUser, isLoggedIn,]);
     return <AppStateContext value={contextValues}>{children}</AppStateContext>;
 }
 

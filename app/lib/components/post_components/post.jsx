@@ -3,13 +3,11 @@ import { useContext } from 'react';
 import { AppStateContext } from '../app_context';
 import PostStateKeeper from './post_context';
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
 import { CommentInput } from '../comment_components/comment_input';
 import { CommentThread } from '../comment_components/comment_thread';
 
 function Post({title, content, username, id, timeCreated}) {
-    const session = useSession();
-    const {deletePost, fetchPostList, setPostList} = useContext(AppStateContext);
+    const {deletePost, fetchPostList, setPostList, isContentFromCurrentUser, isLoggedIn} = useContext(AppStateContext);
     const [isEditMode, setIsEditMode] = useState(false);
     const [isCommentMode, setIsCommentMode] = useState(false);
     const [editedTitle, setEditedTitle] = useState(title);
@@ -31,7 +29,7 @@ function Post({title, content, username, id, timeCreated}) {
                     setEditedContent(newContent);
                 }} /> 
             : <p>{content}</p>}
-        {username === session.data?.user.name 
+        {isContentFromCurrentUser(username)
             ? isEditMode 
                 ? <button onClick={confirmPostEdit}>OK</button>
                 : <button onClick=
@@ -42,17 +40,21 @@ function Post({title, content, username, id, timeCreated}) {
         }
         
         <div className='row-of-buttons'>
-            <button onClick=
-            {
-                () => {
-                    setIsCommentMode(!isCommentMode);
-                }
-            }
-            >comment</button>
-            <button onClick=
-            {() => {
-                deletePost(id);
-            }}>Delete</button>
+            {isLoggedIn() 
+                ? <button onClick=
+                    {
+                        () => {
+                            setIsCommentMode(!isCommentMode);
+                        }
+                    }
+                    >comment</button>
+                : null}
+            {isContentFromCurrentUser(username) 
+                ? <button onClick=
+                {() => {
+                    deletePost(id);
+                }}>Delete</button>
+                : null}
         </div>
         {isCommentMode ? <CommentInput postId={id} username={username}></CommentInput> : null}
         {<CommentThread postId={id}></CommentThread>}

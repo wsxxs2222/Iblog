@@ -1,7 +1,7 @@
 'use client'
-import { Post } from "../lib/components/post";
+import { Post } from "../lib/components/post_components/post";
 import { useContext } from "react";
-import { AppStateContext } from "../context";
+import { AppStateContext } from "../lib/components/app_context";
 import { useSession } from "next-auth/react";
 
 export default function ProfilePage() {

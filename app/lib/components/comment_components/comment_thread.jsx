@@ -3,6 +3,7 @@
 import { useEffect, useContext } from "react"
 import axios from "axios"
 import { PostStateContext } from "../post_components/post_context";
+import { AppStateContext } from "../app_context";
 
 function CommentThread() {
     const {fetchCommentList, commentList,} = useContext(PostStateContext);
@@ -20,11 +21,14 @@ function CommentThread() {
 
 function Comment({content, username, commentId}) {
     const {fetchCommentList,} = useContext(PostStateContext);
+    const {isContentFromCurrentUser} = useContext(AppStateContext);
 
     return <div>
         <h4>{content}</h4>
         <p>by {username}</p>
-        <button onClick={deleteComment}>delete comment</button>
+        {isContentFromCurrentUser(username)
+            ? <button onClick={deleteComment}>delete comment</button>
+            : null}
     </div>;
 
     async function deleteComment() {
