@@ -6,7 +6,7 @@ import { PostStateContext } from "../post_components/post_context";
 
 function CommentInput({postId, username}) {
     const [commentContent, setCommentContent] = useState('');
-    const {fetchCommentList} = useContext(PostStateContext);
+    const {refreshCommentList} = useContext(PostStateContext);
 
     return <div>
         <input type="text" value={commentContent} onChange=
@@ -23,7 +23,7 @@ function CommentInput({postId, username}) {
         const comment = {postId: postId, content: commentContent, username: username}
         await axios.post(`/api/user-post/comment?postId=${postId}`, {comment: comment});
         setCommentContent('');
-        await fetchCommentList();
+        await refreshCommentList();
     }
 }
 

@@ -7,7 +7,7 @@ import { timeFormatter } from '../../../util/time_tools';
 
 function CreatePostArea() {
     const [inputPost, setInputPost] = React.useState({title: '', content: '',});
-    const {addPost} = useContext(AppStateContext);
+    const {refreshPostList} = useContext(AppStateContext);
     const session = useSession();
 
     return <form id='create-post-area'>
@@ -15,11 +15,6 @@ function CreatePostArea() {
         <textarea name="content" value={inputPost.content} onChange={updateInputPost} placeholder="content"></textarea>
         <button onClick={(event) => {
             event.preventDefault();
-
-            const currentTime = new Date();
-            inputPost.timeCreated = timeFormatter(currentTime);
-            inputPost.email = session.data?.user.email;
-
             addPost(inputPost);
             setInputPost({title: '', content: '',});
         }}>Post</button>
@@ -30,6 +25,16 @@ function CreatePostArea() {
         setInputPost((oldInputPost) => {
             return {...oldInputPost, [name]: value,};
         });
+    }
+
+    async function addPost(post) {
+        const currentTime = new Date();
+        post.timeCreated = timeFormatter(currentTime);
+        post.email = session.data?.user.email;
+        await axios.post('/api/user-post', {
+            post: post,
+        });
+        await refreshPostList();
     }
 }
 

@@ -8,14 +8,12 @@ import { useSession } from 'next-auth/react';
 
 
 function HomePage() {
-    const {postList, fetchPostList, setPostList} = useContext(AppStateContext);
+    const {postList, refreshPostList,} = useContext(AppStateContext);
     const session = useSession();
     
     useEffect(() => {
-        fetchPostList().then((apiPostList) => {
-            setPostList(apiPostList);
-        });
-    }, [fetchPostList, setPostList,]);
+        refreshPostList();
+    }, [refreshPostList,]);
 
     return <div>
         {session.data?.user ? <CreatePostArea></CreatePostArea> : null}

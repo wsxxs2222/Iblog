@@ -15,21 +15,21 @@ export function AppStateKeeper({children}) {
     const session = useSession();
     const [postList, setPostList] = React.useState([]);
 
-    const fetchPostList = useCallback(async () => {
+    const refreshPostList = useCallback(async () => {
         try {
             const response = await axios.get('/api/user-post');
             const result = response.data;
-            console.log(`result is`, result);
+            // console.log(`result is`, result);
             if (!result.success) {
                 console.log('failed to fetch posts');
-                return [];
+                setPostList([]);
             }
-            return result.posts;
+            setPostList(result.posts);
         } catch (e) {
             console.log(e);
-            return [];
+            setPostList([]);
         }
-    }, []);
+    }, [setPostList]);
 
     
 
@@ -41,33 +41,15 @@ export function AppStateKeeper({children}) {
         return session.status === "authenticated";
     }, [session,]);
 
-
-    const addPost = useCallback(async (post) => {
-        await axios.post('/api/user-post', {
-            post: post,
-        });
-        const apiPostList = await fetchPostList();
-        setPostList(apiPostList);
-    }, [fetchPostList]);
-    const deletePost = useCallback(async (idOfToBeDeletedPost) => {
-        await axios.delete('/api/user-post', {
-            data: {id: idOfToBeDeletedPost,},
-        });
-        const apiPostList = await fetchPostList();
-        setPostList(apiPostList);
-    }, [fetchPostList]);
-
     const contextValues = useMemo(() => (
         {
             postList: postList,
             setPostList: setPostList,
-            addPost: addPost,
-            deletePost: deletePost,
-            fetchPostList: fetchPostList,
+            refreshPostList: refreshPostList,
             isContentFromCurrentUser: isContentFromCurrentUser,
             isLoggedIn: isLoggedIn,
         }
-    ), [postList, addPost, deletePost, fetchPostList, isContentFromCurrentUser, isLoggedIn,]);
+    ), [postList, refreshPostList, isContentFromCurrentUser, isLoggedIn,]);
     return <AppStateContext value={contextValues}>{children}</AppStateContext>;
 }
 

@@ -6,11 +6,11 @@ import { PostStateContext } from "../post_components/post_context";
 import { AppStateContext } from "../app_context";
 
 function CommentThread() {
-    const {fetchCommentList, commentList,} = useContext(PostStateContext);
+    const {refreshCommentList, commentList,} = useContext(PostStateContext);
 
     useEffect(() => {
-        fetchCommentList();
-    }, [fetchCommentList]);
+        refreshCommentList();
+    }, [refreshCommentList]);
 
     return <div>
         {commentList.map((comment, index) => {
@@ -20,7 +20,7 @@ function CommentThread() {
 }
 
 function Comment({content, username, commentId}) {
-    const {fetchCommentList,} = useContext(PostStateContext);
+    const {refreshCommentList,} = useContext(PostStateContext);
     const {isContentFromCurrentUser} = useContext(AppStateContext);
 
     return <div>
@@ -34,7 +34,7 @@ function Comment({content, username, commentId}) {
     async function deleteComment() {
         console.log('client comment id is', commentId);
         await axios.delete(`/api/user-post/comment?commentId=${commentId}`);
-        await fetchCommentList();
+        await refreshCommentList();
     }
 }
 

@@ -7,7 +7,7 @@ import { CommentInput } from '../comment_components/comment_input';
 import { CommentThread } from '../comment_components/comment_thread';
 
 function Post({title, content, username, id, timeCreated}) {
-    const {deletePost, fetchPostList, setPostList, isContentFromCurrentUser, isLoggedIn} = useContext(AppStateContext);
+    const {refreshPostList, isContentFromCurrentUser, isLoggedIn} = useContext(AppStateContext);
     const [isEditMode, setIsEditMode] = useState(false);
     const [isCommentMode, setIsCommentMode] = useState(false);
     const [editedTitle, setEditedTitle] = useState(title);
@@ -31,7 +31,7 @@ function Post({title, content, username, id, timeCreated}) {
             : <p>{content}</p>}
         {isContentFromCurrentUser(username)
             ? isEditMode 
-                ? <button onClick={confirmPostEdit}>OK</button>
+                ? <button onClick={editPost}>OK</button>
                 : <button onClick=
                     {() => {
                         setIsEditMode(true);
@@ -58,16 +58,24 @@ function Post({title, content, username, id, timeCreated}) {
         </div>
         {isCommentMode ? <CommentInput postId={id} username={username}></CommentInput> : null}
         {<CommentThread postId={id}></CommentThread>}
-    </PostStateKeeper>
-    async function confirmPostEdit() {
+    </PostStateKeeper>;
+    
+    async function editPost() {
         try {
             await axios.patch('/api/user-post', {title: editedTitle, content: editedContent, id: id,});
-            setPostList(await fetchPostList());
+            await refreshPostList();
         } catch (e) {
             console.log(e);
         } finally {
             setIsEditMode(false);
         }
+    }
+
+    async function deletePost(idOfToBeDeletedPost) {
+        await axios.delete('/api/user-post', {
+            data: {id: idOfToBeDeletedPost,},
+        });
+        await refreshPostList();
     }
 }
 

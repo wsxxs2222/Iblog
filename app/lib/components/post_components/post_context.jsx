@@ -13,7 +13,7 @@ export const PostStateContext = createContext(
 export default function PostStateKeeper({postId ,children}) {
     const [commentList, setCommentList] = useState([]);
 
-    const fetchCommentList = useCallback(async () => {
+    const refreshCommentList = useCallback(async () => {
         const response = await axios.get(`/api/user-post/comment?postId=${postId}`);
         setCommentList(response.data.commentList);
     }, [setCommentList, postId,]);
@@ -22,9 +22,9 @@ export default function PostStateKeeper({postId ,children}) {
             {
                 commentList: commentList,
                 setCommentList: setCommentList,
-                fetchCommentList: fetchCommentList,
+                refreshCommentList: refreshCommentList,
             }
-        ), [commentList, setCommentList, fetchCommentList,]);
+        ), [commentList, setCommentList, refreshCommentList,]);
 
     return <PostStateContext value={contextValues}>{children}</PostStateContext>;
 }
