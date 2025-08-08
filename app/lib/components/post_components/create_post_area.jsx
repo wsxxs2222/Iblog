@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { AppStateContext } from '../app_context';
 import { useSession } from 'next-auth/react';
 import { timeFormatter } from '../../../util/time_tools';
+import axios from 'axios';
 
 function CreatePostArea() {
     const [inputPost, setInputPost] = React.useState({title: '', content: '',});
@@ -34,6 +35,7 @@ function CreatePostArea() {
         await axios.post('/api/user-post', {
             post: post,
         });
+        await axios.post('/api/ai/comment-post', {post: post});
         await refreshPostList();
     }
 }
