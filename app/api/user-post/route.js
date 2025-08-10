@@ -18,10 +18,12 @@ export async function POST(request) {
     const post = data.post;
     const {title, content, timeCreated, email} = post;
     try {
-        await db.query('INSERT INTO post (title, content, time_created, email) VALUES ($1, $2, $3, $4)',
+        const result = await db.query('INSERT INTO post (title, content, time_created, email) VALUES ($1, $2, $3, $4) '
+            + 'RETURNING id;',
             [title, content, timeCreated, email],
         );
-        return NextResponse.json({success: true,});
+        const postId = result.rows[0].id;
+        return NextResponse.json({success: true, postId: postId});
     } catch (e) {
         console.error('DB error:', e);
         return NextResponse.json({success: false, error: e.message}, {status: 500});
@@ -35,7 +37,7 @@ export async function PATCH(request) {
     const id = data.id;
     try {
         await db.query(
-            'UPDATE post SET title=$1, content=$2 WHERE id=$3',
+            'UPDATE post SET title=$1, content=$2 WHERE id=$3;',
             [title, content, id,],
         );
         return NextResponse.json({success: true,});
@@ -49,14 +51,13 @@ export async function PATCH(request) {
 export async function DELETE(request) {
     const data = await request.json();
     const id = data.id;
-    console.log('the id is', id);
     try {
-        await db.query('DELETE FROM post WHERE id=$1',
+        await db.query('DELETE FROM post WHERE id=$1;',
             [id,],
         );
         return NextResponse.json({success: true,});
     } catch (e) {
-        console.error('DB error:', err);
+        console.error('DB error:', e);
         return NextResponse.json({success: false, error: e.message}, {status: 500});
     }
 }

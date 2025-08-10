@@ -14,7 +14,7 @@ function CommentThread() {
 
     return <div>
         {commentList.map((comment, index) => {
-            return <Comment key={index} content={comment.content} username={comment.username} commentId={comment.id}></Comment>
+            return <Comment key={index} content={comment.content} username={comment.username ?? comment.ainame} commentId={comment.id}></Comment>
         })}
     </div>
 }

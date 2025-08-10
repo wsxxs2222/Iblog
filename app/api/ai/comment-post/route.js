@@ -19,6 +19,10 @@ export async function POST(request) {
             + 'JOIN blog_user ON ai.id=blog_user.ai_id WHERE blog_user.email=$1;',
             [email],
         );
+        // do not comment to a post that is from a user without ai friend
+        if (aiFriendResult.rows.length == 0) {
+            return NextResponse.json({success: true});
+        }
         const aiFriend = aiFriendResult.rows[0];
         const prompt = buildCommentPrompt(aiFriend.name, aiFriend.character, aiFriend.relationToUser,
             post.title + '\n' + post.content
@@ -28,10 +32,9 @@ export async function POST(request) {
             model: "gemini-2.5-flash",
             contents: prompt,
         });
-        console.log('post id is', post.id);
         
         const aiComment = aiResponse.candidates[0].content.parts[0].text; // fixme
-        console.log('ai response is', aiResponse.candidates[0].content);
+        // console.log('ai response is', aiResponse.candidates[0].content);
         await db.query('INSERT INTO comment (post_id, content, ai_id) '
             + 'VALUES ($1, $2, $3);',
             [post.id, aiComment, aiFriend.id],

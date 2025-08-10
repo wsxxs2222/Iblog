@@ -5,8 +5,9 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const postId = searchParams.get('postId');
     try {
-    const result = await db.query('SELECT * FROM comment ' + 
-        'WHERE post_id=$1 ORDER BY id ASC LIMIT 20;',
+    const result = await db.query('SELECT content, username, ai.name AS ainame FROM comment ' + 
+        'JOIN ai on comment.ai_id=ai.id ' +
+        'WHERE post_id=$1 ORDER BY comment.id ASC LIMIT 20;',
         [postId],
     );
     return NextResponse.json({ success: true, commentList: result.rows });

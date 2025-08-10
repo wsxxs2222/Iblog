@@ -32,9 +32,10 @@ function CreatePostArea() {
         const currentTime = new Date();
         post.timeCreated = timeFormatter(currentTime);
         post.email = session.data?.user.email;
-        await axios.post('/api/user-post', {
+        const response = await axios.post('/api/user-post', {
             post: post,
         });
+        post.id = response.data.postId;
         await axios.post('/api/ai/comment-post', {post: post});
         await refreshPostList();
     }

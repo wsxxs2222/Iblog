@@ -8,7 +8,7 @@ import axios from "axios";
 
 export default function ProfilePage() {
   const {postList} = useContext(AppStateContext);
-  const {data: sessionData, loginStatus} = useSession();
+  const {data: sessionData} = useSession();
   const {email, name} = sessionData?.user ?? {};
   const [aiFriend, setAiFriend] = useState(null);
 
@@ -27,7 +27,7 @@ export default function ProfilePage() {
         setAiFriend(aiFriend);
     });
     
-  }, [setAiFriend]);
+  }, [setAiFriend, email,]);
 
   const userPostList = postList.filter((post) => {
     return post.username === name;
@@ -37,7 +37,7 @@ export default function ProfilePage() {
     <h2>Username: {name}</h2>
     {aiFriend === null
       ? <RegisterAiInput setAiFriend={setAiFriend}></RegisterAiInput>
-      : <h3>AI name: {aiFriend.name} relation to user: {aiFriend.relation_to_user}</h3>}
+      : <h3>AI name: {aiFriend?.name} relation to user: {aiFriend?.relation_to_user}</h3>}
     {userPostList.map((post, index) => {
       return <Post title={post.title} content={post.content} username={post.username} key={index} id={post.id}></Post>;
     })}
