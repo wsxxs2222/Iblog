@@ -29,7 +29,8 @@ function RegisterAiInput({setAiFriend}) {
 
     async function registerNewAiFriend() {
         await axios.post('/api/ai', {newAiFriend: aiInformation, email: email});
-        const aiFriend = await axios.get(`/api/ai?email=${email}`);
+        const result = await axios.get(`/api/ai?email=${email}`);
+        const aiFriend = result.data?.aiFriend;
         setAiFriend(aiFriend);
     }
 }

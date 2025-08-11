@@ -36,12 +36,17 @@ export async function POST(request) {
     }
 }
 
-export async function DELETE() {
+export async function DELETE(request) {
     const { searchParams } = new URL(request.url);
     const email = searchParams.get('email');
 
     try {
-        const aiId = await db.query('UPDATE blog_user SET ai_id=NULL WHERE email=$1 RETURNING ai_id;',
+        const result = await db.query(
+            'SELECT ai_id FROM blog_user WHERE email=$1;',
+            [email],
+            );
+        const aiId = result.rows[0]?.ai_id;
+        await db.query('UPDATE blog_user SET ai_id=NULL WHERE email=$1;',
             [email],
         )
         await db.query('DELETE FROM ai WHERE id=$1;',

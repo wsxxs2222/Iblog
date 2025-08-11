@@ -11,7 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
-TODOs.txt
+*.txt
 OAuth_credentials.txt
 
 # Editor directories and files

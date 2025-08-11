@@ -16,6 +16,7 @@ export default function PostStateKeeper({postId ,children}) {
     const refreshCommentList = useCallback(async () => {
         const response = await axios.get(`/api/user-post/comment?postId=${postId}`);
         setCommentList(response.data.commentList);
+        console.log('commentList is', commentList);
     }, [setCommentList, postId,]);
 
     const contextValues = useMemo(() => (

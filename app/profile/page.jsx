@@ -32,14 +32,27 @@ export default function ProfilePage() {
   const userPostList = postList.filter((post) => {
     return post.username === name;
   });
+  console.log('ai friend is', aiFriend);
   
   return <div>
     <h2>Username: {name}</h2>
-    {aiFriend === null
-      ? <RegisterAiInput setAiFriend={setAiFriend}></RegisterAiInput>
-      : <h3>AI name: {aiFriend?.name} relation to user: {aiFriend?.relation_to_user}</h3>}
+    {aiFriend === null || aiFriend === undefined
+      ? <div>
+          <RegisterAiInput setAiFriend={setAiFriend}></RegisterAiInput>
+        </div>
+      : <div>
+          <h3>AI name: {aiFriend?.name} relation to user: {aiFriend?.relation_to_user}</h3>
+          <button onClick={deleteAiFriend}>delete AI friend</button>
+        </div> }
     {userPostList.map((post, index) => {
       return <Post title={post.title} content={post.content} username={post.username} key={index} id={post.id}></Post>;
     })}
   </div>;
+
+  async function deleteAiFriend() {
+    await axios.delete(`/api/ai?email=${email}`);
+    const result = await axios.get(`/api/ai?email=${email}`);
+    const aiFriend = result.data?.aiFriend;
+    setAiFriend(aiFriend);
+  }
 }

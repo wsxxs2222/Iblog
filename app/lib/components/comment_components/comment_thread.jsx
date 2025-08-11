@@ -12,9 +12,11 @@ function CommentThread() {
         refreshCommentList();
     }, [refreshCommentList]);
 
+    // console.log('commentList is', commentList);
+
     return <div>
         {commentList.map((comment, index) => {
-            return <Comment key={index} content={comment.content} username={comment.username ?? comment.ainame} commentId={comment.id}></Comment>
+            return <Comment key={index} content={comment.content} username={comment.author} commentId={comment.id}></Comment>
         })}
     </div>
 }

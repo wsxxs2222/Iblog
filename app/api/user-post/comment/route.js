@@ -5,11 +5,12 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const postId = searchParams.get('postId');
     try {
-    const result = await db.query('SELECT content, username, ai.name AS ainame FROM comment ' + 
-        'JOIN ai on comment.ai_id=ai.id ' +
+    const result = await db.query('SELECT comment.id, content, COALESCE(username, ai.name) AS author FROM comment ' + 
+        'LEFT JOIN ai on comment.ai_id=ai.id ' +
         'WHERE post_id=$1 ORDER BY comment.id ASC LIMIT 20;',
         [postId],
     );
+    console.log('result.rows is', result.rows);
     return NextResponse.json({ success: true, commentList: result.rows });
   } catch (e) {
     console.error('DB error:', e);
@@ -44,7 +45,7 @@ export async function DELETE(request) {
         );
         return NextResponse.json({success: true,});
     } catch (e) {
-        console.error('DB error:', err);
+        console.error('DB error:', e);
         return NextResponse.json({success: false, error: e.message}, {status: 500});
     }
 }

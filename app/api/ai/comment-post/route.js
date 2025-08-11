@@ -15,7 +15,7 @@ export async function POST(request) {
     const email = post.email;
 
     try {
-        const aiFriendResult = await db.query('SELECT name, character, relation_to_user FROM ai '
+        const aiFriendResult = await db.query('SELECT id, name, character, relation_to_user FROM ai '
             + 'JOIN blog_user ON ai.id=blog_user.ai_id WHERE blog_user.email=$1;',
             [email],
         );
@@ -34,7 +34,6 @@ export async function POST(request) {
         });
         
         const aiComment = aiResponse.candidates[0].content.parts[0].text; // fixme
-        // console.log('ai response is', aiResponse.candidates[0].content);
         await db.query('INSERT INTO comment (post_id, content, ai_id) '
             + 'VALUES ($1, $2, $3);',
             [post.id, aiComment, aiFriend.id],
