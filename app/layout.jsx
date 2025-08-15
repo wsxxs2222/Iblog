@@ -1,7 +1,9 @@
 import '../app/ui/global.css';
+import '../app/ui/theme.css';
 import { AppStateKeeper } from './lib/components/app_context';
-import {MyAppBar} from './lib/components/appbar';
+import {MyAppBar} from './lib/components/basic_elements/appbar';
 import { SessionProviderWrapper } from './lib/components/session_provider';
+import { Footer } from './lib/components/basic_elements/footer';
 
 export const metadata = {
   title: 'Next.js',
@@ -14,8 +16,13 @@ export default function RootLayout({ children }) {
       <body>
         <SessionProviderWrapper>
           <AppStateKeeper>
-              <MyAppBar></MyAppBar>
-              {children}
+              <div className='app'>
+                <MyAppBar></MyAppBar>
+                <div className='page-body'>
+                  {children}
+                </div>
+                <Footer></Footer>
+              </div>
           </AppStateKeeper>
         </SessionProviderWrapper>
       </body>

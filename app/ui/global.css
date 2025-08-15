@@ -1,14 +1,14 @@
-h1 {
-    color: aqua;
+body {
+  margin: 0;
 }
 
-#appbar {
-    background-color: aqua;
+.app {
     display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
-.active-tab {
-    background-color: white;
-    color: orange;
+.page-body {
+    flex: 1; /* flex-grow is 1 so it can grow, but the header and footer don't grow */
+    overflow-y: scroll;
 }
-

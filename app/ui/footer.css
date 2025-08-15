@@ -1,0 +1,13 @@
+.footer {
+    height: 96px;
+    background-color: var(--color-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-content {
+    color: var(--text-on-primary);
+    font-size: var(--label-large-size);
+    font-weight: var(--label-large-weight);
+}
