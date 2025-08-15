@@ -41,8 +41,8 @@
   --space-24: 24px;
 
   /* Border radius */
-  --radius-small: 8px;
-  --radius-medium: 12px;
+  --radius-small: 4px;
+  --radius-medium: 8px;
   --radius-full: 9999px;
 }
 

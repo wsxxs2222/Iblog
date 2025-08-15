@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import '../../../ui/appbar.css';
@@ -11,7 +12,7 @@ export function MyAppBar() {
     const pathname = usePathname();
     return <div className="appbar">
         <div className="appbar-left">
-            <img id="blog-logo" src="/images/ibloglogo.png" alt="iblog logo" />
+            <Image id="blog-logo" src="/images/ibloglogo.png" alt="iblog logo" />
             <h1 id="page-title">IBLOG</h1>
         </div>
         <div className="appbar-right">

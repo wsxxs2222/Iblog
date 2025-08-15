@@ -4,7 +4,7 @@
   font-size: var(--label-large-size);
   font-weight: var(--label-large-weight);
   padding: var(--space-8) var(--space-16);
-  border-radius: var(--radius-small);
+  border-radius: var(--radius-medium);
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;

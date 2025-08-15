@@ -5,6 +5,7 @@ import PostStateKeeper from './post_context';
 import axios from 'axios';
 import { CommentInput } from '../comment_components/comment_input';
 import { CommentThread } from '../comment_components/comment_thread';
+import '../../../ui/post.css';
 
 function Post({title, content, username, id, timeCreated}) {
     const {refreshPostList, isContentFromCurrentUser, isLoggedIn} = useContext(AppStateContext);
@@ -14,50 +15,57 @@ function Post({title, content, username, id, timeCreated}) {
     const [editedContent, setEditedContent] = useState(content);
     
     return <PostStateKeeper postId={id}>
-        {isEditMode 
-            ? <input type="text" value={editedTitle} onChange=
-                {(event) => {
-                    const newTitle = event.target.value;
-                    setEditedTitle(newTitle);
-                }} /> 
-            : <h2>{title}</h2>}
-        <h3>by {username} at {timeCreated?.slice(0, 10)}</h3>
-        {isEditMode 
-            ? <input type="text" value={editedContent} onChange=
-                {(event) => {
-                    const newContent = event.target.value;
-                    setEditedContent(newContent);
-                }} /> 
-            : <p>{content}</p>}
-        {isContentFromCurrentUser(username)
-            ? isEditMode 
-                ? <button onClick={editPost}>OK</button>
-                : <button onClick=
-                    {() => {
-                        setIsEditMode(true);
-                    }}>edit</button>
-            : null
-        }
-        
-        <div className='row-of-buttons'>
-            {isLoggedIn() 
-                ? <button onClick=
-                    {
-                        () => {
-                            setIsCommentMode(!isCommentMode);
-                        }
-                    }
-                    >comment</button>
-                : null}
-            {isContentFromCurrentUser(username) 
-                ? <button onClick=
-                {() => {
-                    deletePost(id);
-                }}>Delete</button>
-                : null}
+        <div id='post-container'>
+            <div id='user-avatar-container'>
+                <div id='user-avatar-placeholder'></div>
+            </div>
+            <div id='post-content-container'>
+                {isEditMode 
+                    ? <input type="text" value={editedTitle} onChange=
+                        {(event) => {
+                            const newTitle = event.target.value;
+                            setEditedTitle(newTitle);
+                        }} /> 
+                    : <h2>{title}</h2>}
+                {isEditMode 
+                    ? <input type="text" value={editedContent} onChange=
+                        {(event) => {
+                            const newContent = event.target.value;
+                            setEditedContent(newContent);
+                        }} /> 
+                    : <p>{content}</p>}
+                <h3>by {username} at {timeCreated?.slice(0, 10)}</h3>
+                {isContentFromCurrentUser(username)
+                    ? isEditMode 
+                        ? <button onClick={editPost}>OK</button>
+                        : <button onClick=
+                            {() => {
+                                setIsEditMode(true);
+                            }}>edit</button>
+                    : null
+                }
+                
+                <div className='row-of-buttons'>
+                    {isLoggedIn() 
+                        ? <button onClick=
+                            {
+                                () => {
+                                    setIsCommentMode(!isCommentMode);
+                                }
+                            }
+                            >comment</button>
+                        : null}
+                    {isContentFromCurrentUser(username) 
+                        ? <button onClick=
+                        {() => {
+                            deletePost(id);
+                        }}>Delete</button>
+                        : null}
+                </div>
+                {isCommentMode ? <CommentInput postId={id} username={username}></CommentInput> : null}
+                {<CommentThread postId={id}></CommentThread>}
+            </div>
         </div>
-        {isCommentMode ? <CommentInput postId={id} username={username}></CommentInput> : null}
-        {<CommentThread postId={id}></CommentThread>}
     </PostStateKeeper>;
     
     async function editPost() {

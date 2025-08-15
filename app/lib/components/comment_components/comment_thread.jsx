@@ -27,7 +27,7 @@ function Comment({content, username, commentId}) {
 
     return <div>
         <h4>{content}</h4>
-        <p>by {username}</p>
+        <p>by {username ?? 'deleted account'}</p>
         {isContentFromCurrentUser(username)
             ? <button onClick={deleteComment}>delete comment</button>
             : null}
