@@ -4,7 +4,7 @@ import { db } from '../db';
 export async function GET() {
   try {
     const result = await db.query('SELECT id, title, content, time_created, blog_user.username FROM post ' + 
-        'JOIN blog_user ON post.email=blog_user.email ORDER  BY id ASC LIMIT 20;'
+        'JOIN blog_user ON post.email=blog_user.email ORDER  BY id DESC LIMIT 20;'
     );
     return NextResponse.json({ success: true, posts: result.rows });
   } catch (e) {

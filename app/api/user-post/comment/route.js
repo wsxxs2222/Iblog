@@ -7,7 +7,7 @@ export async function GET(request) {
     try {
     const result = await db.query('SELECT comment.id, content, COALESCE(username, ai.name) AS author FROM comment ' + 
         'LEFT JOIN ai on comment.ai_id=ai.id ' +
-        'WHERE post_id=$1 ORDER BY comment.id ASC LIMIT 20;',
+        'WHERE post_id=$1 ORDER BY comment.id DESC LIMIT 20;',
         [postId],
     );
     console.log('result.rows is', result.rows);
