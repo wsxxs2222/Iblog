@@ -3,6 +3,7 @@
 import { Suspense } from 'react';
 import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
+import '../ui/component.css';
 
 function LoginPage() {
   const searchParams = useSearchParams();
@@ -10,7 +11,7 @@ function LoginPage() {
 
   return <div>
       {isFirstTime ? <h2>Account created successfully! Please log in.</h2> : null}
-      <button onClick={() => signIn('google')}>Sign in with Google</button>
+      <button className='button-large primary' onClick={() => signIn('google')}>Sign in with Google</button>
     </div>;
 }
 

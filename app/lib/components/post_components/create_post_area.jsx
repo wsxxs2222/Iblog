@@ -5,8 +5,8 @@ import { AppStateContext } from '../app_context';
 import { useSession } from 'next-auth/react';
 import { timeFormatter } from '../../../util/time_tools';
 import axios from 'axios';
-import { Button } from '../basic_elements/button';
 import '../../../ui/post_creation.css';
+import '../../../ui/component.css';
 
 function CreatePostModal({onClose}) {
     const [inputPost, setInputPost] = React.useState({title: '', content: '',});
@@ -22,12 +22,12 @@ function CreatePostModal({onClose}) {
                 <input name='title' value={inputPost.title} onChange={updateInputPost} type="text" placeholder="title"/>
                 <textarea name="content" value={inputPost.content} onChange={updateInputPost} placeholder="content" rows={5}></textarea>
                 <div id='post-button-row'>
-                    <Button onClick={(event) => {
+                    <button className='button-large secondary' onClick={(event) => {
                         event.preventDefault();
                         addPost(inputPost);
                         setInputPost({title: '', content: '',});
                         onClose();
-                    }}>Post</Button>
+                    }}>Post</button>
                 </div>
             </form>
         </div>

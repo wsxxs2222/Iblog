@@ -2,6 +2,7 @@
 import { useState } from "react"
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import '../../../ui/component.css';
 
 function RegisterAiInput({setAiFriend}) {
     const [aiInformation, setAiInformation] = useState({
@@ -19,7 +20,7 @@ function RegisterAiInput({setAiFriend}) {
             placeholder="enter ai character" onChange={updateAiInformation} />
         <input type="text" name="relationToUser" value={aiInformation.relationToUser} 
             placeholder="relation to user" onChange={updateAiInformation} />
-        <button onClick={registerNewAiFriend}>submit</button>
+        <button className="button-small primary" onClick={registerNewAiFriend}>submit</button>
     </div>
 
     function updateAiInformation(event) {

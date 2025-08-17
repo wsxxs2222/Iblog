@@ -5,6 +5,7 @@ import { AppStateContext } from "../lib/components/app_context";
 import { useSession } from "next-auth/react";
 import { RegisterAiInput } from "../lib/components/profile_components/register_ai_friend";
 import axios from "axios";
+import '../ui/component.css';
 
 export default function ProfilePage() {
   const {postList} = useContext(AppStateContext);
@@ -42,7 +43,7 @@ export default function ProfilePage() {
         </div>
       : <div>
           <h3>AI name: {aiFriend?.name} relation to user: {aiFriend?.relation_to_user}</h3>
-          <button onClick={deleteAiFriend}>delete AI friend</button>
+          <button className="button-small muted" onClick={deleteAiFriend}>delete AI friend</button>
         </div> }
     {userPostList.map((post, index) => {
       return <Post title={post.title} content={post.content} username={post.username} key={index} id={post.id}></Post>;

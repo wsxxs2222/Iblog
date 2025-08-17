@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import {useState} from 'react';
 import axios from 'axios';
 import { useSearchParams, useRouter } from 'next/navigation';
+import '../../ui/component.css';
 
 function RegisterUsernamePage() {
     const [username, setUsername] = useState('');
@@ -18,7 +19,7 @@ function RegisterUsernamePage() {
                 setUsername(newUsername);
             }}/>
             <h3>{errorMessage}</h3>
-            <button onClick={() => submitUsername()}>submit</button>
+            <button className='button-large primary' onClick={() => submitUsername()}>submit</button>
         </div>;
 
     async function submitUsername() {

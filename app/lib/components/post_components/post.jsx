@@ -6,6 +6,7 @@ import axios from 'axios';
 import { CommentInput } from '../comment_components/comment_input';
 import { CommentThread } from '../comment_components/comment_thread';
 import '../../../ui/post.css';
+import '../../../ui/component.css';
 
 function Post({title, content, username, id, timeCreated}) {
     const {refreshPostList, isContentFromCurrentUser, isLoggedIn} = useContext(AppStateContext);
@@ -21,40 +22,33 @@ function Post({title, content, username, id, timeCreated}) {
             </div>
             <div id='post-content-container'>
                 {isEditMode 
-                    ? <input type="text" value={editedTitle} onChange=
-                        {(event) => {
-                            const newTitle = event.target.value;
-                            setEditedTitle(newTitle);
-                        }} /> 
-                    : <h2>{title}</h2>}
-                {isEditMode 
-                    ? <input type="text" value={editedContent} onChange=
-                        {(event) => {
-                            const newContent = event.target.value;
-                            setEditedContent(newContent);
-                        }} /> 
-                    : <p>{content}</p>}
+                    ? <div>
+                        <input type="text" value={editedTitle} onChange=
+                            {(event) => {
+                                const newTitle = event.target.value;
+                                setEditedTitle(newTitle);
+                            }} /> 
+                        <input type="text" value={editedContent} onChange=
+                            {(event) => {
+                                const newContent = event.target.value;
+                                setEditedContent(newContent);
+                            }} /> 
+                        </div>
+                    : <div>
+                        <h2>{title}</h2>
+                        <p>{content}</p>
+                      </div>}
                 <h3>by {username} at {timeCreated?.slice(0, 10)}</h3>
-                {isContentFromCurrentUser(username)
-                    ? isEditMode 
-                        ? <button onClick={editPost}>OK</button>
-                        : <button onClick=
-                            {() => {
-                                setIsEditMode(true);
-                            }}>edit</button>
-                    : null
-                }
-                
-                <div className='row-of-buttons'>
-                    {isLoggedIn() 
-                        ? <button onClick=
-                            {
-                                () => {
-                                    setIsCommentMode(!isCommentMode);
-                                }
-                            }
-                            >comment</button>
-                        : null}
+                <div>
+                    {isContentFromCurrentUser(username)
+                        ? isEditMode 
+                            ? <button onClick={editPost}>OK</button>
+                            : <button onClick=
+                                {() => {
+                                    setIsEditMode(true);
+                                }}>edit</button>
+                        : null
+                    }
                     {isContentFromCurrentUser(username) 
                         ? <button onClick=
                         {() => {
@@ -62,7 +56,7 @@ function Post({title, content, username, id, timeCreated}) {
                         }}>Delete</button>
                         : null}
                 </div>
-                {isCommentMode ? <CommentInput postId={id} username={username}></CommentInput> : null}
+                {isLoggedIn() ? <CommentInput postId={id} username={username}></CommentInput> : null}
                 {<CommentThread postId={id}></CommentThread>}
             </div>
         </div>

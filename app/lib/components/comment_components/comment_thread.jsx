@@ -4,6 +4,7 @@ import { useEffect, useContext } from "react"
 import axios from "axios"
 import { PostStateContext } from "../post_components/post_context";
 import { AppStateContext } from "../app_context";
+import '../../../ui/component.css';
 
 function CommentThread() {
     const {refreshCommentList, commentList,} = useContext(PostStateContext);
@@ -29,7 +30,7 @@ function Comment({content, username, commentId}) {
         <h4>{content}</h4>
         <p>by {username ?? 'deleted account'}</p>
         {isContentFromCurrentUser(username)
-            ? <button onClick={deleteComment}>delete comment</button>
+            ? <button className="button-small secondary" onClick={deleteComment}>delete comment</button>
             : null}
     </div>;
 

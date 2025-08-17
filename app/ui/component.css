@@ -1,0 +1,34 @@
+.button-large, .button-small{
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-medium);
+  border: none;
+  cursor: pointer;
+  color: var(--text-on-primary);
+}
+
+.button-large {
+  font-size: var(--label-large-size);
+  font-weight: var(--label-large-weight);
+  transition: background-color 0.2s;
+}
+
+.button-small {
+  font-size: var(--label-small-size);
+  font-weight: var(--label-small-weight);
+}
+
+.primary {
+  background-color: var(--color-primary);
+}
+
+.secondary {
+  background-color: var(--color-secondary);
+}
+
+.muted {
+  background-color: var(--text-tertiary);
+}
+
+.button-large:hover {
+  background-color: var(--color-secondary);
+}

@@ -1,0 +1,32 @@
+#comment-input {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-secondary);
+    border-radius: var(--radius-medium);
+    width: 560px;
+}
+
+#comment-input-button-row {
+    justify-self: flex-end;
+    align-self: flex-end;
+    display: flex;
+    gap: var(--space-8);
+    margin-right: 18px;
+    margin-bottom: var(--space-4);
+}
+
+#comment-prompt {
+    border: 1px solid var(--border-secondary);
+    border-radius: var(--radius-medium);
+    color: var(--text-secondary);
+    font-size: var(--paragraph-large-size);
+    font-weight: var(--paragraph-large-weight);
+    width: 560px;
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+}
+
+#comment-input textarea {
+    border: none;
+    outline: none;
+}
