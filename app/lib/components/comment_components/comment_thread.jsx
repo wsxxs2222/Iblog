@@ -16,8 +16,8 @@ function CommentThread() {
     // console.log('commentList is', commentList);
 
     return <div>
-        {commentList.map((comment, index) => {
-            return <Comment key={index} content={comment.content} username={comment.author} commentId={comment.id}></Comment>
+        {commentList.map((comment) => {
+            return <Comment key={comment.id} content={comment.content} username={comment.author} commentId={comment.id}></Comment>
         })}
     </div>
 }

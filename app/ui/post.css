@@ -51,4 +51,45 @@
     font-size: var(--paragraph-medium-size);
     font-weight: var(--paragraph-medium-weight);
     margin-top: var(--space-24);
-} 
+}
+
+#option-list-container {
+    align-self: flex-end;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-8);
+}
+
+#option-item-container {
+    width: 140px;
+}
+
+#dot-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-4);
+}
+
+.option-item-cell {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    padding-left: var(--space-8);
+    color: var(--text-primary);
+    font-size: var(--label-large-size);
+    font-weight: var(--label-large-weight);
+    border: 1px solid var(--border-primary);
+}
+
+.grey-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--text-secondary);
+}
+
+.more-option-container {
+    margin-top: var(--space-24);
+    margin-right: 36px;
+}

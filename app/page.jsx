@@ -19,9 +19,9 @@ function HomePage() {
     return <div>
         {session.data?.user ? <PostListHeader></PostListHeader> : null}
         <div id='post-list-container'>
-            {postList.map((post, index) => {
+            {postList.map((post) => {
                 const {title, content, id} = post;
-                return <Post key={index} title={title} id={id} content={content} username={post.username} timeCreated={post.time_created}></Post>
+                return <Post key={id} title={title} id={id} content={content} username={post.username} timeCreated={post.time_created}></Post>
             })}
         </div>
     </div>;
