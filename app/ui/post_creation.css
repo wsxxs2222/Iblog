@@ -9,9 +9,7 @@
 
 #post-list-header-row {
     display: flex;
-    justify-content: center;
-    gap: 180px;
-    margin-top: 32px;
+    justify-content: space-between;
 }
 
 #sort-post-dropdown {
@@ -56,14 +54,12 @@
     justify-content: flex-end;
 }
 
-.close-button {
-    color: var(--text-primary);
-    font-size: var(--label-large-size);
-    font-weight: var(--label-large-weight);
-    margin-top: var(--space-16);
-    margin-right: var(--space-16);
-    background-color: transparent;
-    border: none;
+#post-header-and-error-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 400px;
+    margin-right: 400px;
+    margin-top: 32px;
 }
 
 #create-post-modal input {
@@ -88,3 +84,14 @@
     background-color: var(--color-secondary);
     margin-top: 48px;
 }
+
+.close-button {
+    color: var(--text-primary);
+    font-size: var(--label-large-size);
+    font-weight: var(--label-large-weight);
+    margin-top: var(--space-16);
+    margin-right: var(--space-16);
+    background-color: transparent;
+    border: none;
+}
+

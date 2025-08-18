@@ -3,9 +3,11 @@
   --color-primary: #4A90E2;
   --color-secondary: #4BC2E3;
   --color-background: #f9f9f9;
+  --color-contrast: #E3AC4B;
   --text-primary: #333333;
   --text-secondary: #858585;
   --text-tertiary: #D9D9D9;
+  --text-error: red;
   --text-on-primary: #FFFFFF;
   --border-primary: #929292;
   --border-secondary: #D9D9D9;

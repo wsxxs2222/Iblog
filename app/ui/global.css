@@ -22,3 +22,9 @@ body {
     overflow-y: scroll;
     padding-bottom: var(--space-8);
 }
+
+.error-message {
+  color: var(--text-error);
+  font-size: var(--paragraph-medium-size);
+  font-weight: var(--paragraph-medium-weight);
+}
