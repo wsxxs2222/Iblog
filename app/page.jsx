@@ -3,21 +3,20 @@ import { PostListHeader } from './lib/components/post_components/post_list_heade
 import { Post } from './lib/components/post_components/post';
 import { useContext, useEffect } from 'react';
 import { AppStateContext } from './lib/components/app_context';
-import { useSession } from 'next-auth/react';
 import './ui/post.css';
+import './ui/global.css';
 
 
 
 function HomePage() {
     const {postList, refreshPostList,} = useContext(AppStateContext);
-    const session = useSession();
     
     useEffect(() => {
         refreshPostList();
     }, [refreshPostList,]);
 
     return <div>
-        {session.data?.user ? <PostListHeader></PostListHeader> : null}
+        <PostListHeader></PostListHeader>
         <div id='post-list-container'>
             {postList.map((post) => {
                 const {title, content, id} = post;

@@ -19,7 +19,9 @@ export default function RootLayout({ children }) {
               <div className='app'>
                 <MyAppBar></MyAppBar>
                 <div className='page-body'>
-                  {children}
+                  <div id='home-page'>
+                    {children}
+                  </div>
                 </div>
                 <Footer></Footer>
               </div>

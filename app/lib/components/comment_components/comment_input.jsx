@@ -26,7 +26,12 @@ function CommentInput({postId, username}) {
                                 setIsExpanded(false);
                             }}
                         >Cancel</button>
-                        <button className="button-small secondary" onClick={addComment}>Comment</button>
+                        <button className="button-small secondary" 
+                            onClick={() => {
+                                setIsExpanded(false);
+                                addComment();
+                            }}
+                        >Comment</button>
                     </div>
                 </div>
             :   <input id="comment-prompt" type="text" placeholder="Add a comment" 

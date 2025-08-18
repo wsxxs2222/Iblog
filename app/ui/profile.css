@@ -1,0 +1,32 @@
+#profile-header {
+    margin-left: 256px;
+    margin-bottom: var(--space-16);
+}
+
+#ai-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#ai-info-container h2 {
+    font-size: var(--title-medium-size);
+    font-weight: var(--title-medium-weight);
+}
+
+#ai-info-container h3 {
+    font-size: var(--title-small-size);
+    font-weight: var(--title-small-weight);
+}
+
+#ai-configure-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    align-items: flex-start;
+}
+
+#ai-configure-container input {
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-small);
+}

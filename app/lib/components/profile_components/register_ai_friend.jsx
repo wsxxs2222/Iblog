@@ -13,7 +13,8 @@ function RegisterAiInput({setAiFriend}) {
     const {data: sessionData} = useSession();
     const email = sessionData?.user.email;
 
-    return <div>
+    return <div id="ai-configure-container">
+        <h3>Create your AI friend now!</h3>
         <input type="text" name="name" value={aiInformation.name} 
             placeholder="enter ai name" onChange={updateAiInformation}/>
         <input type="text" name="character" value={aiInformation.character} 

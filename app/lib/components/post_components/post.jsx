@@ -10,7 +10,7 @@ import '../../../ui/post.css';
 import '../../../ui/component.css';
 
 function Post({title, content, username, id, timeCreated}) {
-    const {refreshPostList, isContentFromCurrentUser, isLoggedIn} = useContext(AppStateContext);
+    const {refreshPostList, isContentFromCurrentUser} = useContext(AppStateContext);
     const [isEditMode, setIsEditMode] = useState(false);
     const [editedTitle, setEditedTitle] = useState(title);
     const [editedContent, setEditedContent] = useState(content);
@@ -44,7 +44,7 @@ function Post({title, content, username, id, timeCreated}) {
                         ? <button onClick={editPost}>OK</button>
                         : null}
                 </div>
-                {isLoggedIn() ? <CommentInput postId={id} username={username}></CommentInput> : null}
+                <CommentInput postId={id} username={username}></CommentInput>
                 {<CommentThread postId={id}></CommentThread>}
             </div>
             {isContentFromCurrentUser(username)

@@ -1,5 +1,14 @@
 body {
   margin: 0;
+  background-color: var(--text-tertiary);
+}
+
+#home-page {
+  margin: var(--space-24) 32px var(--space-24) 32px;
+  background-color: var(--text-on-primary);
+  border-radius: var(--radius-medium);
+  padding-top: 1px; /* to avoid child margin collapse with parent margin */
+  padding-bottom: 1px;
 }
 
 .app {
@@ -11,4 +20,5 @@ body {
 .page-body {
     flex: 1; /* flex-grow is 1 so it can grow, but the header and footer don't grow */
     overflow-y: scroll;
+    padding-bottom: var(--space-8);
 }
