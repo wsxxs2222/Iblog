@@ -31,7 +31,6 @@ export function PostListHeader() {
                 <h2>Sort By:</h2>
                 <select name="sort-post-dropdown" id="sort-post-input">
                     <option value="most-recent">Most Recent</option>
-                    <option value="most-liked">Most Liked</option>
                 </select>
             </div>
             {showPostModal 

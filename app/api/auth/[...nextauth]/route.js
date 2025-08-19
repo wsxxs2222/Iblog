@@ -1,8 +1,12 @@
 import nextAuthImport from 'next-auth';
 import googleProviderImport from 'next-auth/providers/google';
+import credentialsProviderImport from "next-auth/providers/credentials";
 import { db } from '../../db';
+import { validateEmail } from '../email/login/validate_email';
+import axios from 'axios';
 
 const GoogleProvider = googleProviderImport.default;
+const CredentialsProvider = credentialsProviderImport.default;
 const NextAuth = nextAuthImport.default;
 // console.log('secret is', process.env.GOOGLE_CLIENT_SECRET);
 
@@ -11,6 +15,29 @@ const handler = NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials: {
+        email: { label: "email", type: "text",},
+      },
+      async authorize(credentials, req) {
+        try {
+          const result = await validateEmail(credentials.email);
+          const {success, username, email} = result;
+          const user = {email: email, name: username};
+          // console.log(response);
+          if (success) {
+            // console.log('login sucess');
+            return user;
+          }
+        } catch (e) {
+          console.log(e);
+          return null;
+        }
+        
+        return null;
+      }
     }),
   ],
   callbacks: {
