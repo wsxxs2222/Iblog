@@ -14,10 +14,6 @@
     margin-bottom: 32px;
 }
 
-#user-avatar-container {
-    
-}
-
 #user-avatar-placeholder {
     width: 84px;
     height: 84px;
@@ -94,4 +90,9 @@
 .more-option-container {
     margin-top: var(--space-24);
     margin-right: 36px;
+}
+
+.post-user-avatar {
+    margin-top: var(--space-8);
+    margin-left: var(--space-16);
 }

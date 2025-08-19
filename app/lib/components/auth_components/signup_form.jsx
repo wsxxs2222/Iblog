@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from "react";
-import { signIn } from 'next-auth/react';
 import axios from "axios";
+import '../../../ui/auth.css';
+import '../../../ui/component.css';
 
 export function SignupForm() {
     const [credentials, setCredentials] = useState({
@@ -12,7 +13,7 @@ export function SignupForm() {
     const [errorMessage, setErrorMessage] = useState(null);
     const [isNewlyCreatedAccount, setIsNewlyCreatedAccount] = useState(false);
 
-    return <div>
+    return <div className="auth-form">
         <input type="text" name="username" value={credentials.username} 
             onChange={(event) => {
                 const {name, value} = event.target;
@@ -25,7 +26,7 @@ export function SignupForm() {
                 updateCredentials(name, value);
             }}
             placeholder="enter email" />
-        <button 
+        <button className="button-small primary"
             onClick={() => {
                 signUp(credentials.username, credentials.email);
             }}
@@ -44,7 +45,7 @@ export function SignupForm() {
 
     async function signUp(username, email) {
         try {
-            const response = await axios.post('/api/auth/email/signup', {username: username, email: email});
+            await axios.post('/api/auth/email/signup', {username: username, email: email});
         } catch (e) {
             if (e.response.status === 401) {
                 setErrorMessage(e.response.data.error);
@@ -54,7 +55,6 @@ export function SignupForm() {
                 return;
             }
         }
-        
         setErrorMessage(null);
         setIsNewlyCreatedAccount(true);
     }

@@ -42,18 +42,11 @@
 .user-avatar-column {
     display: flex;
     align-items: flex-start;
+    padding-top: var(--space-16);
 }
 
-.user-avatar-placeholder {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: aquamarine;
-    margin-top: var(--space-16);
-}
-
-.small-avatar {
-
+.comment-user-avatar {
+    
 }
 
 .comment-data-column {

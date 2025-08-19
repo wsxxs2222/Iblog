@@ -2,6 +2,7 @@
 
 import { useEffect, useContext } from "react"
 import axios from "axios"
+import Avatar from "react-avatar";
 import { PostStateContext } from "../post_components/post_context";
 import { AppStateContext } from "../app_context";
 import { OptionList } from "../basic_elements/option_list";
@@ -30,7 +31,7 @@ function Comment({content, username, commentId}) {
 
     return <div className="comment-container">
         <div className="user-avatar-column">
-            <div className="user-avatar-placeholder small-avatar"></div>
+           <Avatar name={username} size='36' round={true} className=".comment-user-avatar"></Avatar>
         </div>
         <div className="comment-data-column">
             <div className="comment-top-row">

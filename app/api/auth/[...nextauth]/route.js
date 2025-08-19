@@ -3,7 +3,6 @@ import googleProviderImport from 'next-auth/providers/google';
 import credentialsProviderImport from "next-auth/providers/credentials";
 import { db } from '../../db';
 import { validateEmail } from '../email/login/validate_email';
-import axios from 'axios';
 
 const GoogleProvider = googleProviderImport.default;
 const CredentialsProvider = credentialsProviderImport.default;
@@ -21,7 +20,7 @@ const handler = NextAuth({
       credentials: {
         email: { label: "email", type: "text",},
       },
-      async authorize(credentials, req) {
+      async authorize(credentials/*, req*/) {
         try {
           const result = await validateEmail(credentials.email);
           const {success, username, email} = result;

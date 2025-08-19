@@ -13,7 +13,7 @@ export function MyAppBar() {
     return <div className="appbar">
         <div className="appbar-left">
             <Image id="blog-logo" src="/images/ibloglogo.png" alt="iblog logo" width={64} height={64} />
-            <h1 id="page-title">IBLOG</h1>
+            <h1 id="page-title">IBlog</h1>
         </div>
         <div className="appbar-right">
             <Link key='Home' href='/'>

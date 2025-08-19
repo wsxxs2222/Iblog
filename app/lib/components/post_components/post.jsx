@@ -6,6 +6,7 @@ import axios from 'axios';
 import { CommentInput } from '../comment_components/comment_input';
 import { CommentThread } from '../comment_components/comment_thread';
 import { OptionList } from '../basic_elements/option_list';
+import Avatar from 'react-avatar';
 import '../../../ui/post.css';
 import '../../../ui/component.css';
 
@@ -17,9 +18,7 @@ function Post({title, content, username, id, timeCreated}) {
     
     return <PostStateKeeper postId={id}>
         <div id='post-container'>
-            <div id='user-avatar-container'>
-                <div id='user-avatar-placeholder'></div>
-            </div>
+            <Avatar className='post-user-avatar' name={username} size='64' round={true}></Avatar>
             <div id='post-content-container'>
                 {isEditMode 
                     ? <div>

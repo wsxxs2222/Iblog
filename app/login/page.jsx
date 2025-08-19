@@ -13,14 +13,14 @@ function LoginPage() {
   const isFirstTime = searchParams.get('isFirstTime');
   const [formType, setFormType] = useState('login');
 
-  return <div>
+  return <div id='login-body'>
     {isFirstTime ? <h2>Account created successfully! Please log in.</h2> : null}
     {formType === 'login'
       ? <LoginForm></LoginForm>
       : <SignupForm></SignupForm>}
-    <button onClick={changeFormType}>switch to {formType === 'login' 
+    <p onClick={changeFormType}>switch to {formType === 'login' 
     ? 'signup'
-    : 'login'}</button>
+    : 'login'}</p>
     <button className='button-large primary' onClick={() => signIn('google')}>Sign in with Google</button>
   </div>;
 
